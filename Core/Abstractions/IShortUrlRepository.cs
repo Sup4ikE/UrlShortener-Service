@@ -1,7 +1,7 @@
 using UrlShortener.Core.DTOs;
 using UrlShortener.Core.Entities;
 
-namespace UrlShortener.Core.Repo;
+namespace UrlShortener.Core.Abstractions;
 
 public interface IShortUrlRepository
 {

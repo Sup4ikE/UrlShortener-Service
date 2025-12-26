@@ -3,6 +3,7 @@ using UrlShortener.Core.Abstractions;
 using UrlShortener.Core.DTOs;
 using UrlShortener.Core.Services;
 using UrlShortener.Infrastructure.DbContext;
+using UrlShortener.Infrastructure.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<UrlShortenerDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ManagerDbCs")));
 builder.Services.AddSingleton<ICodeGenerator, CodeGenerator>();
+builder.Services.AddScoped<IShortUrlRepository, ShortUrlRepository>();
 builder.Services.AddScoped<IShortenerService>(sp =>
 {
     var gen = sp.GetRequiredService<ICodeGenerator>();
