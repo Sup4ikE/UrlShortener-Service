@@ -3,5 +3,5 @@ namespace UrlShortener.Core.Abstractions;
 
 public interface IShortenerService
 {
-    ShortenResult Shorten(string originalUrl);
+    Task<ShortenResult> ShortenAsync(string originalUrl);
 }

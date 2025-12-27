@@ -10,14 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DI
 builder.Services.AddDbContext<UrlShortenerDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ManagerDbCs")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ManagerDbCS")));
 builder.Services.AddSingleton<ICodeGenerator, CodeGenerator>();
 builder.Services.AddScoped<IShortUrlRepository, ShortUrlRepository>();
 builder.Services.AddScoped<IShortenerService>(sp =>
 {
     var gen = sp.GetRequiredService<ICodeGenerator>();
+    var repo = sp.GetRequiredService<IShortUrlRepository>();
     var baseUrl = builder.Configuration["Shortener:BaseUrl"]!;
-    return new ShortenerService(gen, baseUrl);
+    return new ShortenerService(gen, repo, baseUrl);
 });
 
 // Swagger
@@ -35,12 +36,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Endpoint
-app.MapPost("/shorten", (ShortenRequest request, IShortenerService service) =>
-    {
-        var result = service.Shorten(request.Url);
-        return Results.Ok(result);
-    })
-    .WithName("ShortenUrl");
+// app.MapPost("/shorten", (ShortenRequest request, IShortenerService service) =>
+//     {
+//         var result = service.Shorten(request.Url);
+//         return Results.Ok(result);
+//     })
+//     .WithName("ShortenUrl");
+//
 
 app.Run();
 
