@@ -9,6 +9,7 @@ using UrlShortener.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // DI
+builder.Services.AddControllers();
 builder.Services.AddDbContext<UrlShortenerDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ManagerDbCS")));
 builder.Services.AddSingleton<ICodeGenerator, CodeGenerator>();
@@ -33,16 +34,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<UrlShortenerDbContext>();
+    db.Database.Migrate();
+}
+
 app.UseHttpsRedirection();
-
-// Endpoint
-// app.MapPost("/shorten", (ShortenRequest request, IShortenerService service) =>
-//     {
-//         var result = service.Shorten(request.Url);
-//         return Results.Ok(result);
-//     })
-//     .WithName("ShortenUrl");
-//
-
+app.MapControllers();
 app.Run();
 
