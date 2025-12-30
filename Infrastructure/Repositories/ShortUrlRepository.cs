@@ -49,7 +49,11 @@ public class ShortUrlRepository: IShortUrlRepository
 
     public async Task<List<ShortUrl>> GetPageAsync(int page, int pageSize)
     {
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 10;
+
         return await _dbContext.ShortUrls
+            .AsNoTracking()
             .OrderBy(u => u.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)

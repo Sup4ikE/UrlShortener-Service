@@ -17,13 +17,13 @@ public class ShortenerService: IShortenerService
         _repo = repo;
     }
     
+    
     public async Task<ShortenResult> ShortenAsync(string originalUrl)
     {
         if (string.IsNullOrWhiteSpace(originalUrl) || !Uri.TryCreate(originalUrl, UriKind.Absolute, out var resultUri) || (resultUri.Scheme != Uri.UriSchemeHttp && resultUri.Scheme != Uri.UriSchemeHttps))
         {
             throw new ArgumentException("Invalid URL", nameof(originalUrl));
         }
-
         
         bool exists = false;
         string code = string.Empty;
@@ -52,5 +52,50 @@ public class ShortenerService: IShortenerService
         
         string shortRes = $"{_baseUrl.TrimEnd('/')}/{code}";
         return new ShortenResult(code, shortRes);
+    }
+    
+    public async Task<string?> ResolveOriginalUrlAndIncrementAsync(string code)
+    {
+        if (code == null || code == string.Empty) return null;
+        
+        var entity = await _repo.GetByCodeAsync(code);
+        if (entity == null) return null;
+            
+        await _repo.IncrementClicksAsync(code);
+        await _repo.SaveChangesAsync();
+        
+        return entity.OriginalUrl;
+    }
+    
+    public async Task<UrlStatsDto?> GetStatsAsync(string code)
+    {
+        if (code == null || code == string.Empty) return null;
+        
+        var entity = await _repo.GetByCodeAsync(code);
+        if (entity == null) return null;
+
+        var ent = new UrlStatsDto(
+            entity.Code,
+            entity.OriginalUrl,
+            entity.CreatedAt,
+            entity.Clicks
+            );
+        
+        return ent;
+    }
+    
+    public async Task<List<ShortUrl>> GetPageAsync(int page, int pageSize) => await _repo.GetPageAsync(page, pageSize);
+
+    public async Task<bool> DeleteByCodeAsync(string code)
+    {
+        if (code == null || code == string.Empty) return false;
+        
+        var entity = await _repo.GetByCodeAsync(code);
+        
+        if(entity == null) return false;
+        
+        await _repo.DeleteByCodeAsync(code);
+        await _repo.SaveChangesAsync();
+        return true;
     }
 }
