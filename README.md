@@ -36,12 +36,12 @@ This project was created as a **pet-project** to practice backend architecture, 
 
 ---
 
-## 📦 Project Structure
+## 📦 Project structure:
 
-├── Api/ # ASP.NET Core Web API
-├── Core/ # Domain logic & abstractions
-├── Infrastructure/ # Database & repositories
-├── Tests/ # Unit & integration tests
+├── Api/                 # ASP.NET Core Web API
+├── Core/                # Domain logic & abstractions
+├── Infrastructure/      # Database & repositories
+├── Tests/               # Unit & integration tests
 ├── UrlShortener.sln
 └── Dockerfile
 
