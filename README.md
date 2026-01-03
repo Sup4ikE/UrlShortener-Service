@@ -1,7 +1,7 @@
 # 🔗 URL Shortener Service
 
-![CI](https://github.com/<OWNER>/<REPO>/actions/workflows/ci.yml/badge.svg)
-![CD](https://github.com/<OWNER>/<REPO>/actions/workflows/cd.yml/badge.svg)
+![CI](https://github.com/Sup4ikE/UrlShortener-Service/actions/workflows/ci.yml/badge.svg)
+![CD](https://github.com/Sup4ikE/UrlShortener-Service/actions/workflows/cd.yml/badge.svg)
 
 A simple and clean **URL Shortener API** built with **ASP.NET Core**.  
 The service allows creating short URLs, redirecting to original links, tracking usage, and managing stored URLs.
@@ -49,12 +49,12 @@ This project was created as a **pet-project** to practice backend architecture, 
 
 ## 🚀 API Endpoints (example)
 
-| Method | Endpoint                          | Description                   |
-|------|-----------------------------------|---------------------------------|
-| POST | `/api/shortener/shorten`          | Create short URL                |
-| GET  | `/api/shortener/{code}`           | Redirect to original URL        |
-| GET  | `/api/shortener/all?page=1&size=10` | Get paginated URLs            |
-| DELETE | `/api/shortener/{code}`         | Delete short URL                |
+| Method | Endpoint                               | Description               |
+|--------|----------------------------------------|---------------------------|
+| POST   | `/api/shortener/shorten`               | ➕ Create short URL        |
+| GET    | `/api/shortener/{code}`                | 🔁 Redirect to original URL|
+| GET    | `/api/shortener/all?page=1&size=10`    | 📄 Get paginated URLs     |
+| DELETE | `/api/shortener/{code}`                | ❌ Delete short URL       |
 
 ---
 
