@@ -53,6 +53,7 @@ This project was created as a **pet-project** to practice backend architecture, 
 |--------|----------------------------------------|---------------------------|
 | POST   | `/api/shortener/shorten`               | ➕ Create short URL        |
 | GET    | `/api/shortener/{code}`                | 🔁 Redirect to original URL|
+| GET    | `/api/shortener/stats/{code}`          | 📄 Get stats from URL     |
 | GET    | `/api/shortener/all?page=1&size=10`    | 📄 Get paginated URLs     |
 | DELETE | `/api/shortener/{code}`                | ❌ Delete short URL       |
 
@@ -91,5 +92,6 @@ Runs only after successful CI
 This project is licensed under the MIT License.
 
 👨‍💻 Author
+
 Created by Oleg Pona
 Junior Backend Developer (.NET)
