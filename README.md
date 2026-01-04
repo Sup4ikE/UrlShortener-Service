@@ -52,10 +52,10 @@ This project was created as a **pet-project** to practice backend architecture, 
 | Method | Endpoint                               | Description               |
 |--------|----------------------------------------|---------------------------|
 | POST   | `/api/shortener/shorten`               | ➕ Create short URL        |
-| GET    | `/api/shortener/{code}`                | 🔁 Redirect to original URL|
-| GET    | `/api/shortener/stats/{code}`          | 📄 Get stats from URL     |
-| GET    | `/api/shortener/all?page=1&size=10`    | 📄 Get paginated URLs     |
-| DELETE | `/api/shortener/{code}`                | ❌ Delete short URL       |
+| GET    | `/api/shortener/shorten/{code}`        | 🔁 Redirect to original URL|
+| GET    | `/api/shortener/shorten/stats/{code}`  | 📄 Get stats from URL     |
+| GET    | `/api/shortener/shorten/all`           | 📄 Get paginated URLs     |
+| DELETE | `/api/shortener/shorten/{code}`        | ❌ Delete short URL       |
 
 ---
 
